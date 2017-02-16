@@ -1,6 +1,6 @@
 # vuedemo
 
-> A Vue.js project
+> The front end of [vt-service](https://github.com/JennicaLi/vt-service).
 
 ## Build Setup
 
