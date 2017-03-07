@@ -2,8 +2,8 @@
     <div class="pane wrap" >
       <h3>{{sourceinfo.name}}</h3>
       <div>
-        <span>{{sourceinfo.updatedAt}}</span>
-        <span>{{sourceinfo.createdAt}}</span>
+        <span>更新时间：{{sourceinfo.updatedAt}}</span>
+        <span>创建时间：{{sourceinfo.createdAt}}</span>
       </div>
 
       <table>
@@ -39,11 +39,22 @@
         mounted:function(){
           var url=source_url+'/'+username+'/'+this.$route.params.sourceid;
           this.$http.get(url).then(function(res){
+          //res.data[0]['createdAt']=getTime(res.data[0]['createdAt']);
+          //res.data[0]['updatedAt']=getTime(res.data[0]['updatedAt']);
             this.sourceinfo=res.data[0];
           },function(err){
             console.error(err);
           })
-        }
+        },
+        methods:{
+        getTime:function(str){
+        var dt = new Date(str);
+var date = [
+  [dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join('-'),
+  [dt.getHours(), dt.getMinutes(), dt.getSeconds()].join(':')
+].join(' ').replace(/(?=\b\d\b)/g, '0');
+return data;
+        }}
     }
 </script>
 <style>

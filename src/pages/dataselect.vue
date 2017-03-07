@@ -4,11 +4,19 @@
 
     <ul id="datalist">
       <li v-for="source in sources" >
-        <input type="checkbox" v-bind:value="source.source_id" v-model="selectItem"/>
+        <input type="checkbox" v-bind:value="source.name" v-model="selectItem"/>
         <label>{{source.source_id}}-{{source.name}}</label>
       </li>
     </ul>
-   <div>{{selectItem}}</div>
+   <div id="selected">{{selectItem}}</div>
+    <ul id="layers">
+      <li v-for="item in selectItem">
+        <span>{{item}}</span>
+        <input type="text" placeholder="sql" value=""/>
+      </li>
+    </ul>
+    <button v-on:click="getXML()">generate xml</button>
+    <button >generate vectorTile</button>
   </div>
 </template>
 
@@ -29,7 +37,8 @@
     data (){
       return {
         sources:[],
-        selectItem:[]
+        selectItem:[],
+        layers:[]
       }
     },
     mounted:function () {
@@ -71,6 +80,26 @@
 //        var posY = e.clientY - parseInt(divTop);
 //        e.currentTarget.style.left = (ev.clientX - posX) + "px";
 //        e.currentTarget.style.top = ev.clientY - posY + "px";
+      },
+      getXML:function () {
+        var items=this.$el.querySelector('#layers').childNodes;
+        for(var i=0;i<items.length;i++){
+          var layer={};
+          var child1=items[i].childNodes[0];
+          while(child1){
+          if(child1.nodeName=='SPAN'){
+            layer.name=child1.childNodes[0].data;
+          }
+          else if(child1.nodeName=='INPUT'){
+            layer.filter=child1.value;
+          }
+            console.log(child1);
+          child1=child1.nextSibling;
+          }
+
+
+        }
+
       }
     }
   }

@@ -13,7 +13,7 @@
     </div>
     <div class="left-sidebar" >
       <ul id="menu">
-      <li v-for="(router,index) in routers" v-on:click='selectItem(index)' v-bind:class="['aside-link',{'li-selected':selected===index}]"><router-link  class='aside-link' v-bind:to="router.to" >{{router.text}}</router-link></li>
+      <li v-for="(router,index) in routers" class='aside-link'><router-link  active-class='li-selected' class='aside-link' v-bind:to="router.to" >{{router.text}}</router-link></li>
         </ul>
 
     </div>
@@ -37,18 +37,12 @@ export default {
   components: {intruction},
   data(){
     return {
-      selected:0,
       routers:[
         {to:'/',text:'登陆'},
         {to:'/register',text:'注册'},
         {to:'/sources',text:'数据源'},
         {to:'/tilesets',text:'瓦片集'}
       ]
-    }
-  },
-  methods:{
-    selectItem:function (index) {
-      this.selected=index;
     }
   }
 }
